@@ -16,7 +16,7 @@ export const editContact = async (contactId, payload, options = {}) => {
         },
     );
     if (!editedContact) return null;
-    return editContact;
+    return editedContact;
 }
 
 export const getAllContacts = async () => {
