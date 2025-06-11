@@ -3,7 +3,7 @@ import pino from 'pino-http';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { getEnvVar } from './utils/getEnvVar.js';
-import { getAllContacts, getContactsById } from './services.js';
+import { getAllContacts, getContactsById } from './services/contacts.js';
 
 dotenv.config();
 const PORT = Number(getEnvVar("PORT", "3000"));
@@ -50,7 +50,7 @@ export const setupServer = async () => {
         res.status(200).json({
             status: 200,
             message: "Successfully found contacts!",
-            data: { contact }
+            data: contact
         })
     })
 
