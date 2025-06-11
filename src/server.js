@@ -29,7 +29,7 @@ export const setupServer = async () => {
         })
     })
 
-    app.use('/api',router);
+    app.use(router);
     
     app.use(notFoundHandler)
     
