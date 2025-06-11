@@ -16,10 +16,7 @@ export const editContact = async (contactId, payload, options = {}) => {
         },
     );
     if (!editedContact) return null;
-    return {
-        contact: editedContact,
-        isNew: Boolean(editedContact?.lastErrorObject?.upserted),
-    }
+    return editContact;
 }
 
 export const getAllContacts = async () => {
