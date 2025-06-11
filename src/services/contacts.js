@@ -11,7 +11,6 @@ export const editContact = async (contactId, payload, options = {}) => {
         payload,
         {
             new: true,
-            includeResultMetadata: true,
             ...options,
         },
     );

@@ -47,7 +47,7 @@ export const editContactController = async (req, res, next) => {
 
     res.status(200).json({
         status: 200,
-        message: `Successfully edited a student!`,
+        message: `Successfully edited a contact!`,
         data: contact,
     });
 }
