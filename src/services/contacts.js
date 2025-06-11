@@ -1,4 +1,4 @@
-import { Contact } from "../db/models/contacts";
+import { Contact } from "../db/models/contacts.js";
 
 export const createContact = async (contact) => {
     const newContact = await Contact.create(contact);
