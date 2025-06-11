@@ -1,4 +1,3 @@
-import { getAllContactsController } from "../controllers/contacts.js";
 import { HttpError } from 'http-errors';
 
 export const errorHandler = async (err, req, res) => {
@@ -14,6 +13,6 @@ export const errorHandler = async (err, req, res) => {
     res.status(500).json({
         status: 500,
 		message: "Something went wrong",
-        data: getAllContactsController()
+        data: err.message
     });
 }
