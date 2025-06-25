@@ -1,4 +1,6 @@
+import { SORT_ORDER } from "../constance/index.js";
 import { Contact } from "../db/models/contacts.js";
+import { calculatePaginationData } from "../utils/calculatePaginationData.js";
 
 export const createContact = async (contact) => {
     const newContact = await Contact.create(contact);
@@ -18,9 +20,20 @@ export const editContact = async (contactId, payload, options = {}) => {
     return editedContact;
 }
 
-export const getAllContacts = async () => {
-  const contact = await Contact.find();
-  return contact;
+export const getAllContacts = async ({ page = 1, perPage = 10, sortOrder = SORT_ORDER.ASC, sortBy = '_id', }) => {
+    const limit = page;
+    const skip = (page - 1) * perPage;
+
+    const contactsQuery = Contact.find(); 
+
+    const contactsCount = await Contact.find().merge(contactsQuery).countDocuments();
+    const contacts = await contactsQuery.skip(skip).limit(limit).sort({ [sortBy]: sortOrder }).exec();
+    const paginationData = calculatePaginationData(contactsCount, perPage, page);  
+
+    return {
+        data: contacts,
+        ...paginationData
+    }
 };
 
 export const getContactsById = async (id) => {
