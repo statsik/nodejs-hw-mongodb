@@ -20,9 +20,9 @@ export const editContact = async (contactId, payload, options = {}) => {
     return editedContact;
 }
 
-export const getAllContacts = async ({ page = 1, perPage = 10, sortOrder = SORT_ORDER.ASC, sortBy = '_id', }) => {
+export const getAllContacts = async ({ page, perPage, sortOrder = SORT_ORDER.ASC, sortBy = '_id', }) => {
     const limit = page;
-    const skip = perPage; //(page - 1) * 
+    const skip = perPage * (page - 1);
 
     const contactsQuery = Contact.find(); 
 
