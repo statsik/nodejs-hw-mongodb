@@ -22,7 +22,7 @@ export const editContact = async (contactId, payload, options = {}) => {
 
 export const getAllContacts = async ({ page = 1, perPage = 10, sortOrder = SORT_ORDER.ASC, sortBy = '_id', }) => {
     const limit = page;
-    const skip = (page - 1) * perPage;
+    const skip = perPage; //(page - 1) * 
 
     const contactsQuery = Contact.find(); 
 
