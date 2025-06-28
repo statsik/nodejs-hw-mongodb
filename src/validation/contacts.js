@@ -1,11 +1,11 @@
 import Joi from 'joi';
 
 export const createContactSchema = Joi.object({
-    page: Joi.number().integer().min(1).default(1).messages({
-      'number.base': 'Page should be a number',
-      'number.integer': 'Page should be an integer',
-      'number.min': 'Page should be at least {#limit}'
-    }),
+  page: Joi.number().integer().min(1).default(1).messages({
+    'number.base': 'Page should be a number',
+    'number.integer': 'Page should be an integer',
+    'number.min': 'Page should be at least {#limit}'
+  }),
     
   perPage: Joi.number().integer().min(1).max(100).default(10).messages({
       'number.base': 'Items per page should be a number',
