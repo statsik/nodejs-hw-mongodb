@@ -17,6 +17,6 @@ export const validateBody = (schema) => async(req, res, next) => {
         const error = createHttpError(400, "Validation Error", {
             errors: formattedErrors,
         });
-        next(error);
+        return next(error);
     }
 }
