@@ -1,15 +1,11 @@
 import { HttpError } from 'http-errors';
 
 export const errorHandler = async (err, req, res, next) => {
-    if (err.isJoi){
+    if (err.status === 400 && err.errors) {
         return res.status(400).json({
-            status: 400,
-            message: "Something went wrong",
-            data: err.message,
-            details: err.details.map(({ path, message }) => ({
-                path,
-                message,
-            })),
+          status: 400,
+          message: err.message,
+          errors: err.errors,
         });
     }
 
