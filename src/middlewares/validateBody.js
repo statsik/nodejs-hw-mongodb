@@ -13,7 +13,6 @@ export const validateBody = (schema) => async (req, res, next) => {
         const formattedErrors = err.details.map(detail => ({
             field: detail.path.join('.'),
             message: detail.message.replace(/"/g, ''), 
-            type: detail.type
         }));
 
         next(createHttpError(400, {
