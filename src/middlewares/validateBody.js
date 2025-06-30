@@ -15,10 +15,15 @@ export const validateBody = (schema) => async (req, res, next) => {
             message: detail.message.replace(/"/g, ''), 
         }));
 
-        next(createHttpError(400, {
+        const errorMessages = err.details.map(detail => 
+            detail.message.replace(/"/g, '')
+        ).join('\n');
+
+        next(createHttpError(400, 
             //message: "Validation Error",
             //errors: formattedErrors,
-            errors: err.message.replace(/"/g, ''),
-        }));
+            //errors: err.details.message.replace(/"/g, ''),
+            errorMessages
+        ));
     }
 };
