@@ -10,15 +10,15 @@ export const validateBody = (schema) => async (req, res, next) => {
         req.body = validatedData;
         next();
     } catch (err) {
-        // const formattedErrors = err.details.map(detail => ({
-        //     field: detail.path.join('.'),
-        //     message: detail.message.replace(/"/g, ''), 
-        // }));
+        const formattedErrors = err.details.map(detail => ({
+            field: detail.path.join('.'),
+            message: detail.message.replace(/"/g, ''), 
+        }));
 
         next(createHttpError(400, {
             //message: "Validation Error",
             //errors: formattedErrors,
-            errors: err.details.message.replace(/"/g, ''),
-        }));
+            errors: err.message.replace(/"/g, '') + "\n", 
+    }));
     }
 };
