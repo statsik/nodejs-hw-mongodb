@@ -13,6 +13,7 @@ export const validateBody = (schema) => async (req, res, next) => {
         next(createHttpError(400, {
             //message: "Validation Error",
             //errors: formattedErrors,
+            message: err.message.replace(/"/g, ''),
             errors: err.details, 
         }));
     }

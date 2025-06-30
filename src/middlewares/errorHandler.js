@@ -4,8 +4,8 @@ export const errorHandler = async (err, req, res, next) => {
     if (err.status === 400 && err.errors) {
         return res.status(400).json({
           status: 400,
-          message: err.errors,
-          //errors: err.errors,
+          message: err.message,
+          errors: err.errors,
         });
     }
 
