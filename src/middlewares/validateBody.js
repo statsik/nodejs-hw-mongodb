@@ -11,7 +11,6 @@ export const validateBody = (schema) => async (req, res, next) => {
         next();
     } catch (err) {
         const formattedErrors = err.details.map(detail => ({
-            field: detail.path.join('.'),
             message: detail.message.replace(/"/g, ''), 
         }));
 
