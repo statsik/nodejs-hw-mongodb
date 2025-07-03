@@ -13,7 +13,6 @@ export const registerUserController = async (req, res) => {
          },
          ////////////////////////////////////////////////////////
      })
-     console.log('Register request:', req.body);
 }
  
 export const loginUserController = async (req, res) => {

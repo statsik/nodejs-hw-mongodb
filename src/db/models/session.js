@@ -2,8 +2,10 @@ import mongoose, { model } from "mongoose";
 
 const sessionsSchema = new mongoose.Schema({
     userId: {
-        type: String,
-        required: true,
+        // type: String,
+        // required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
     },
     accessToken: {
         type: String,
