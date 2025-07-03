@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { registerUser } from "../services/contacts";
 import { ctrlWrapper } from "../utils/ctrlWrapper";
 import { validateBody } from "../middlewares/validateBody";
 import { loginUserSchema } from "../validation/auth";
 import { loginUserController, logoutUserController, registerUserController } from "../controllers/auth";
+import { registerUser } from "../services/auth";
 
 const router = Router();
 

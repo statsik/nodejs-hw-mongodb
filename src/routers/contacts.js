@@ -20,6 +20,7 @@ router.post('/contacts',
     ctrlWrapper(createContactsController)),
 router.put('/contacts/:contactId',
     isValidId,
+    validateBody(createContactSchema),  
     ctrlWrapper(editContactController));
 router.patch('/contacts/:contactId',
     isValidId, 
