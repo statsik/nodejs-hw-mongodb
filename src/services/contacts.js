@@ -20,11 +20,11 @@ export const editContact = async (contactId, payload, options = {}) => {
     return editedContact;
 }
 
-export const getAllContacts = async ({ page, perPage, sortOrder = SORT_ORDER.ASC, sortBy = '_id', }) => {
+export const getAllContacts = async ({ page, perPage, sortOrder = SORT_ORDER.ASC, sortBy = '_id', userId}) => {
     const limit = perPage;
     const skip = perPage * (page - 1);
-
-    const contactsQuery = Contact.find(); 
+    //тут добавил userId
+    const contactsQuery = Contact.find({userId}); 
 
     const contactsCount = await Contact.find().merge(contactsQuery).countDocuments();
     const contacts = await contactsQuery.skip(skip).limit(limit).sort({ [sortBy]: sortOrder }).exec();
@@ -36,9 +36,11 @@ export const getAllContacts = async ({ page, perPage, sortOrder = SORT_ORDER.ASC
     }
 };
 
-export const getContactsById = async (id) => {
-  const contactId = await Contact.findById(id);
-  return contactId;
+export const getContactsById = async (id, userId) => {
+    //   const contactId = await Contact.findById(id);
+    //   return contactId;
+    const contact = await Contact.findOne({ _id: id, userId });
+    return contact;
 };
 
 export const deleteContact = async (contactId) => {

@@ -4,16 +4,20 @@ import { ctrlWrapper } from "../utils/ctrlWrapper.js";
 import { createContactSchema, updateContactSchema } from "../validation/contacts.js";
 import { validateBody } from "../middlewares/validateBody.js";
 import { isValidId } from "../middlewares/isValidId.js";
+import { authenticate } from "../middlewares/authenticate.js";
 
 const router = Router();
+
+router.use(authenticate);
+router.get('/', ctrlWrapper(getContactsByIdController));
 
 router.get('/contacts', ctrlWrapper(getAllContactsController));
 router.get('/contacts/:contactId',
     isValidId,
-    ctrlWrapper(getContactsByIdController));
+    ctrlWrapper(getContactsByIdController)),
 router.post('/contacts',
     validateBody(createContactSchema),
-    ctrlWrapper(createContactsController));
+    ctrlWrapper(createContactsController)),
 router.put('/contacts/:contactId',
     isValidId,
     ctrlWrapper(editContactController));
