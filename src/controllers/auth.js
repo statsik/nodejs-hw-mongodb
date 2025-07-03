@@ -1,5 +1,5 @@
-import { ONE_DAY } from "../constance";
-import { loginUser, logoutUser, refreshUsersSession, registerUser } from "../services/auth";
+import { ONE_DAY } from "../constance.js";
+import { loginUser, logoutUser, refreshUsersSession, registerUser } from "../services/auth.js";
 
 export const registerUserController = async (req, res) => {
      const user = await registerUser(req.body);

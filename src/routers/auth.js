@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { ctrlWrapper } from "../utils/ctrlWrapper";
-import { validateBody } from "../middlewares/validateBody";
-import { loginUserSchema, registerUserSchema } from "../validation/auth";
-import { loginUserController, logoutUserController, registerUserController } from "../controllers/auth";
+import { ctrlWrapper } from "../utils/ctrlWrapper.js";
+import { validateBody } from "../middlewares/validateBody.js";
+import { loginUserSchema, registerUserSchema } from "../validation/auth.js";
+import { loginUserController, logoutUserController, registerUserController } from "../controllers/auth.js";
 
-const router = Router();
+const router = Router(); 
 
 router.post(
     '/register',
