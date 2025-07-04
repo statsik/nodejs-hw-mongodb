@@ -16,7 +16,7 @@ export const getAllContactsController = async (req, res) => {
     })
     const result = {
         ...contacts,
-        data: contacts?.data || []
+        data: contacts
     };
 
     res.status(200).json({
