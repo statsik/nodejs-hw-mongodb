@@ -9,7 +9,7 @@ import { authenticate } from "../middlewares/authenticate.js";
 const router = Router();
 
 router.use(authenticate);
-router.get('/', ctrlWrapper(getAllContactsController));
+router.get('/', ctrlWrapper(getContactsByIdController));
 
 router.get('/contacts', ctrlWrapper(getAllContactsController));
 router.get('/contacts/:contactId',
