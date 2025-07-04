@@ -6,7 +6,7 @@ import { getEnvVar } from './utils/getEnvVar.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import cookieParser from 'cookie-parser';
-import router from './routers/auth.js';
+import router from './routers/index.js';
 
 dotenv.config();
 const PORT = Number(getEnvVar("PORT", "3000"));
