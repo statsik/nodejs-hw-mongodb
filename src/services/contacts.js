@@ -23,7 +23,6 @@ export const editContact = async (contactId, payload, options = {}) => {
 export const getAllContacts = async ({ page, perPage, sortOrder = SORT_ORDER.ASC, sortBy = '_id', userId}) => {
     const limit = perPage;
     const skip = perPage * (page - 1);
-    //тут добавил userId
     const contactsQuery = Contact.find({userId}); 
 
     const contactsCount = await Contact.find().merge(contactsQuery).countDocuments();
