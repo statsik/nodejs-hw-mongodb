@@ -14,15 +14,15 @@ export const getAllContactsController = async (req, res) => {
         sortOrder,
         userId, 
     })
-    const result = {
-        ...contacts,
-        data: contacts
-    };
+    // const result = {
+    //     ...contacts,
+    //     data: contacts
+    // };
 
     res.status(200).json({
         status: 200,
         message: "Successfully found contacts!",
-        data: result, 
+        data: contacts.data, 
     })
 }
 
