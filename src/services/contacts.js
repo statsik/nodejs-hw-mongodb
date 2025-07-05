@@ -3,6 +3,10 @@ import { Contact } from "../db/models/contacts.js";
 import { calculatePaginationData } from "../utils/calculatePaginationData.js";
 
 export const createContact = async (contact) => {
+    
+    ///LOGg
+    console.log('Creating contact with data:', contact); 
+
     const newContact = await Contact.create(contact);
     return newContact;
 }
