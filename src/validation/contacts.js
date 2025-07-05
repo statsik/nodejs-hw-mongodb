@@ -12,7 +12,7 @@ export const createContactSchema = Joi.object({
       return helper.message('Parent id should be a valid mongo id');
     }
     return value;
-  }).required()
+  })
 });
 
 export const updateContactSchema = Joi.object({
