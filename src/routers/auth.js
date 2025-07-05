@@ -22,7 +22,7 @@ router.post('/refresh',
     ctrlWrapper(refreshUserSessionController)
 )
 
-router.post(
+router.post( 
     '/logout',
     ctrlWrapper(logoutUserController));
 
