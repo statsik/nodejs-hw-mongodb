@@ -103,23 +103,34 @@ export const patchContactController = async (req, res, next) => {
             photoUrl = await saveFileToUploadDir(photo);
         }
     }
-    const result = await editContact(contactId, {
-        ...req.body,
-        photo: photoUrl,
-    });
+    // const result = await editContact(contactId, {
+    //     ...req.body,
+    //     photo: photoUrl,
+    // });
     
-      if (!result) {
-        next(createHttpError(404, 'Student not found'));
-        return;
-      }
+    //   if (!result) {
+    //     next(createHttpError(404, 'Student not found'));
+    //     return;
+    //   }
     
-      res.json({
-        status: 200,
-        message: `Successfully patched a student!`,
-        data: result.student,
-      });
+    //   res.json({
+    //     status: 200,
+    //     message: `Successfully patched a student!`,
+    //     data: result.student,
+    //   });
 
-    const contact = await editContact(contactId, req.body, userId);
+    const updatedData = {
+        ...req.body,
+    };
+
+    if (photoUrl) {
+        updatedData.photo = photoUrl;
+    }
+
+    const contact = await editContact(
+        contactId, userId, updatedData
+    );
+
     if (!contact) {
         next(createHttpError(404, 'Contact not found'));
         return;
