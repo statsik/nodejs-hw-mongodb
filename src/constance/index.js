@@ -12,4 +12,4 @@ export const SMTP = {
     SMTP_USER: 'SMTP_USER',
     SMTP_PASSWORD: 'SMTP_PASSWORD',
     SMTP_FROM: 'SMTP_FROM',
-  };
+};

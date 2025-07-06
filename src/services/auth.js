@@ -88,8 +88,8 @@ export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
 };
 
 export const requestResetToken = async(email) => {
-    const user = await User.findOne({ email });
-    if (!user) {
+  const user = await User.findOne({ email });
+  if (!user) {
       throw createHttpError(404, 'User not found');
   }
   const resetToken = jwt.sign(
