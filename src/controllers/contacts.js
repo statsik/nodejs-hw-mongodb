@@ -57,7 +57,7 @@ export const createContactsController = async (req, res) => {
         } else {
             photoUrl = await saveFileToUploadDir(photo);
         }
-    }
+    }  
 
     const contact = await createContact({
         ...req.body,
