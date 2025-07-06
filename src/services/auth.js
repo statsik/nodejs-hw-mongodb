@@ -1,9 +1,12 @@
 import bcrypt from 'bcrypt';
 import User from '../db/models/user.js';
 import createHttpError from 'http-errors';
+import jwt from 'jsonwebtoken';
 import { SessionsCollection } from '../db/models/session.js';
 import { randomBytes } from 'crypto';
-import { FIFTEEN_MINUTES, ONE_DAY } from '../constance/index.js';
+import { FIFTEEN_MINUTES, ONE_DAY, SMTP } from '../constance/index.js';
+import { getEnvVar } from '../utils/getEnvVar.js';
+import { sendEmail } from '../utils/sendMail.js';
 
 export const registerUser = async (payload) => {
     const user = await User.findOne({ email: payload.email })
@@ -84,3 +87,25 @@ export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
     });
 };
 
+export const requestResetToken = async(email) => {
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw createHttpError(404, 'User not found');
+  }
+  const resetToken = jwt.sign(
+    {
+      sub: user._id,
+      email,
+    },
+    getEnvVar('JWT_SECRET'),
+    {
+      expiresIn:'15m',
+    }
+  )
+  await sendEmail({
+    from: getEnvVar(SMTP.SMTP_FROM),
+    to: email,
+    subject: 'Reset your password',
+    html: `<p>Click <a href="${resetToken}">here</a> to reset your password!</p>`,
+  });
+}
