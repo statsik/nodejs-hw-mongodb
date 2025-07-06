@@ -2,6 +2,9 @@ import createHttpError from 'http-errors';
 import { createContact, getAllContacts, getContactsById, editContact, deleteContact } from "../services/contacts.js";
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
+import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
+import { getEnvVar } from '../utils/getEnvVar.js';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 
 export const getAllContactsController = async (req, res) => {
     const { sortBy, sortOrder } = parseSortParams(req.query);
@@ -74,6 +77,32 @@ export const editContactController = async (req, res, next) => {
 export const patchContactController = async (req, res, next) => {
     const { contactId } = req.params;
     const { _id: userId } = req.user;
+    const photo = req.file;
+    let photoUrl;
+
+    if (photo) {
+        if (getEnvVar('ENABLE_CLOUDINARY') === 'true') {
+            photoUrl = await saveFileToCloudinary(photo);
+        } else {
+            photoUrl = await saveFileToUploadDir(photo);
+        }
+    }
+    const result = await editContact(contactId, {
+        ...req.body,
+        photo: photoUrl,
+    });
+    
+      if (!result) {
+        next(createHttpError(404, 'Student not found'));
+        return;
+      }
+    
+      res.json({
+        status: 200,
+        message: `Successfully patched a student!`,
+        data: result.student,
+      });
+
     const contact = await editContact(contactId, req.body, userId);
     if (!contact) {
         next(createHttpError(404, 'Contact not found'));
