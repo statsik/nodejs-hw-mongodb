@@ -4,7 +4,7 @@ import createHttpError from 'http-errors';
 import jwt from 'jsonwebtoken';
 import { SessionsCollection } from '../db/models/session.js';
 import { randomBytes } from 'crypto';
-import { FIFTEEN_MINUTES, ONE_DAY, SMTP } from '../constance/index.js';
+import { FIFTEEN_MINUTES, ONE_DAY, SMTP, JWT_SECRET } from '../constance/index.js';
 import { getEnvVar } from '../utils/getEnvVar.js';
 import { sendEmail } from '../utils/sendMail.js';
 
@@ -97,7 +97,7 @@ export const requestResetToken = async(email) => {
       sub: user._id,
       email,
     },
-    getEnvVar('JWT_SECRET'),
+    getEnvVar(JWT_SECRET),
     {
       expiresIn:'15m',   
     }
