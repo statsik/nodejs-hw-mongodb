@@ -1,7 +1,7 @@
 import path from 'node:path';
 import fs from 'node:fs/promises';
-import { TEMP_UPLOAD_DIR, UPLOAD_DIR } from '../constance.js';
 import { getEnvVar } from './getEnvVar.js';
+import { TEMP_UPLOAD_DIR, UPLOAD_DIR } from '../constance/index.js';
 
 export const saveFileToUploadDir = async (file) => {
   await fs.rename(
