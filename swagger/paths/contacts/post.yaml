@@ -1,0 +1,44 @@
+tags:
+  - Contacts
+summary: Create contact
+operationId: createContact
+description: 'Create a contact with payload'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:  
+        - _id
+        - name
+        - phoneNumber
+        - isFavourite
+        - contactType
+        properties:
+          _id:
+            description: "Contact's age"
+            type: string
+            example: 12
+          name:
+            description: "Contact's name"
+            type: string
+            example: 'John Doe'
+          phoneNumber:
+            description: "Student's age"
+            type: string
+            example: "1231232132"
+          isFavourite:
+            type: boolean
+            example: true
+          contactType:
+            description: 'Whether is student on duty'
+            type: string
+            enum: ["work", "home", "personal"]
+          photo:
+            description: "Student's photo"
+            type: string
+            format: binary
+
+

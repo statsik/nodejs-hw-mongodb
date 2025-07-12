@@ -13,10 +13,15 @@ dotenv.config();
 const PORT = Number(getEnvVar("PORT", "3000"));
 
 export const setupServer = async () => {
+    const swaggerUi = require('swagger-ui-express');
+    const YAML = require('yamljs');
+    const swaggerDocument = YAML.load('./swagger/openapi.yaml');
+
     const app = express();
     app.use(express.json());
     app.use(cors());
     app.use(cookieParser())
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
     app.use(
         pino({
