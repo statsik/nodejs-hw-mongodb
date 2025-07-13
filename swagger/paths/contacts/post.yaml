@@ -40,5 +40,3 @@ requestBody:
             description: "Student's photo"
             type: string
             format: binary
-
-
