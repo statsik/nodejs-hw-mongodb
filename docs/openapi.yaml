@@ -20,14 +20,14 @@ servers:
 paths:
   /contacts:
     post:
-      $ref: ../swagger/paths/contacts/patch.yaml
+      $ref: ../swagger/paths/contacts/post.yaml
   /contacts/{id}:
     get:
       $ref: ../swagger/paths/contacts/{id}/get.yaml
     patch: 
-      $ref: ../swagger/paths/contacts/patch.yaml
+      $ref: ../swagger/paths/contacts/{id}/patch.yaml
     delete:
-      $ref: ../swagger/paths/contacts/delete.yaml
+      $ref: ../swagger/paths/contacts/{id}/delete.yaml
 components:
   securitySchemes:
     bearerAuth:
