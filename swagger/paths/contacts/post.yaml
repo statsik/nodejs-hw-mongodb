@@ -20,7 +20,7 @@ requestBody:
           _id:
             description: "Contact's age"
             type: string
-            example: 12
+            example: "1221012091092"
           name:
             description: "Contact's name"
             type: string

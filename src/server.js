@@ -32,10 +32,10 @@ export const setupServer = async () => {
             message:'Hello world',
         })
     })
-    
+
     app.use(router);
     
-    app.use('/uploads', express.static(UPLOAD_DIR));
+    app.use('/uploads', express.static(UPLOAD_DIR));    
 
     app.use('/api-docs', swaggerDocs());
 
