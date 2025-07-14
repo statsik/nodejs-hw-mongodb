@@ -39,7 +39,7 @@
         ],
         "summary": "Get all contacts",
         "operationId": "getAllContacts",
-        "description": "Get a paginated list of all contacts with filters",
+        "description": "Get a list of all contacts with pagination",
         "security": [
           {
             "bearerAuth": []
@@ -47,48 +47,29 @@
         ],
         "parameters": [
           {
-            "in": "query",
             "name": "page",
+            "in": "query",
+            "description": "Current page number",
+            "required": false,
             "schema": {
               "type": "integer",
               "default": 1
-            },
-            "description": "Page number for pagination"
+            }
           },
           {
+            "name": "perPage",
             "in": "query",
-            "name": "limit",
+            "description": "Number of items per page",
+            "required": false,
             "schema": {
               "type": "integer",
               "default": 10
-            },
-            "description": "Number of contacts per page"
-          },
-          {
-            "in": "query",
-            "name": "isFavourite",
-            "schema": {
-              "type": "boolean"
-            },
-            "description": "Filter contacts marked as favourite"
-          },
-          {
-            "in": "query",
-            "name": "contactType",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "work",
-                "home",
-                "personal"
-              ]
-            },
-            "description": "Filter contacts by type"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Successfully retrieved contacts",
+            "description": "Successfully retrieved all contacts",
             "content": {
               "application/json": {
                 "schema": {
@@ -96,7 +77,8 @@
                   "required": [
                     "status",
                     "message",
-                    "data"
+                    "data",
+                    "pagination"
                   ],
                   "properties": {
                     "status": {
@@ -105,39 +87,48 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully retrieved contacts"
+                      "example": "Successfully retrieved all contacts"
                     },
                     "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/contact"
+                      }
+                    },
+                    "pagination": {
                       "type": "object",
                       "required": [
-                        "contacts",
                         "page",
-                        "limit",
+                        "perPage",
+                        "totalItems",
                         "totalPages",
-                        "totalContacts"
+                        "hasNextPage",
+                        "hasPreviousPage"
                       ],
                       "properties": {
-                        "contacts": {
-                          "type": "array",
-                          "items": {
-                            "$ref": "#/components/schemas/contact"
-                          }
-                        },
                         "page": {
                           "type": "integer",
                           "example": 1
                         },
-                        "limit": {
+                        "perPage": {
                           "type": "integer",
                           "example": 10
                         },
+                        "totalItems": {
+                          "type": "integer",
+                          "example": 35
+                        },
                         "totalPages": {
                           "type": "integer",
-                          "example": 5
+                          "example": 4
                         },
-                        "totalContacts": {
-                          "type": "integer",
-                          "example": 50
+                        "hasNextPage": {
+                          "type": "boolean",
+                          "example": true
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean",
+                          "example": false
                         }
                       }
                     }
