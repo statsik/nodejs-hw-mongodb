@@ -11,20 +11,20 @@ requestBody:
       schema:
         type: object
         required:  
-        - _id
         - name
+        - email
         - phoneNumber
         - isFavourite
         - contactType
         properties:
-          _id:
-            description: "Contact's age"
-            type: string
-            example: "1221012091092"
           name:
             description: "Contact's name"
             type: string
             example: 'John Doe'
+          email:
+            description: "Contact's email"
+            type: string
+            example: 'contact@gmail.com'
           phoneNumber:
             description: "Student's age"
             type: string
