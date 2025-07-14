@@ -39,15 +39,56 @@
         ],
         "summary": "Get all contacts",
         "operationId": "getAllContacts",
-        "description": "Get a list of all contacts",
+        "description": "Get a paginated list of all contacts with filters",
         "security": [
           {
             "bearerAuth": []
           }
         ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "Page number for pagination"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            },
+            "description": "Number of contacts per page"
+          },
+          {
+            "in": "query",
+            "name": "isFavourite",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Filter contacts marked as favourite"
+          },
+          {
+            "in": "query",
+            "name": "contactType",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "work",
+                "home",
+                "personal"
+              ]
+            },
+            "description": "Filter contacts by type"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Successfully retrieved all contacts",
+            "description": "Successfully retrieved contacts",
             "content": {
               "application/json": {
                 "schema": {
@@ -64,12 +105,40 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully retrieved all contacts"
+                      "example": "Successfully retrieved contacts"
                     },
                     "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/contact"
+                      "type": "object",
+                      "required": [
+                        "contacts",
+                        "page",
+                        "limit",
+                        "totalPages",
+                        "totalContacts"
+                      ],
+                      "properties": {
+                        "contacts": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/contact"
+                          }
+                        },
+                        "page": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "limit": {
+                          "type": "integer",
+                          "example": 10
+                        },
+                        "totalPages": {
+                          "type": "integer",
+                          "example": 5
+                        },
+                        "totalContacts": {
+                          "type": "integer",
+                          "example": 50
+                        }
                       }
                     }
                   }
@@ -78,10 +147,10 @@
             }
           },
           "401": {
-            "description": "Unauthorized"
+            "$ref": "#/components/responses/401"
           },
           "500": {
-            "description": "Internal Server Error"
+            "$ref": "#/components/responses/500"
           }
         }
       },
@@ -106,7 +175,6 @@
                   "name",
                   "email",
                   "phoneNumber",
-                  "isFavourite",
                   "contactType"
                 ],
                 "properties": {
@@ -124,10 +192,6 @@
                     "description": "Student's age",
                     "type": "string",
                     "example": "1231232132"
-                  },
-                  "isFavourite": {
-                    "type": "boolean",
-                    "example": true
                   },
                   "contactType": {
                     "description": "Whether is student on duty",
@@ -395,6 +459,43 @@
       }
     },
     "responses": {
+      "401": {
+        "description": "Unauthorized error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "UnauthorizedError"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Access token expired"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "404": {
         "description": "Not Found error",
         "content": {
@@ -421,6 +522,43 @@
                     "message": {
                       "type": "string",
                       "example": "Resource not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 500
+                },
+                "message": {
+                  "type": "string",
+                  "example": "InternalServerError"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "An unexpected error occurred on the server"
                     }
                   }
                 }
