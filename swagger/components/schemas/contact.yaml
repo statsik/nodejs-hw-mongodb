@@ -14,6 +14,10 @@ properties:
     description: "Contact's name"
     type: string
     example: 'John Doe'
+  email:
+    description: "Contact's email"
+    type: string
+    example: 'contact@gmail.com'
   phoneNumber:
     description: "Contact's age"
     type: string

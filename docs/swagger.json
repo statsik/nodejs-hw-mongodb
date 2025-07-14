@@ -243,6 +243,11 @@
                     "type": "string",
                     "example": "John Doe"
                   },
+                  "email": {
+                    "description": "Contact's email",
+                    "type": "string",
+                    "example": "contact@gmail.com"
+                  },
                   "phoneNumber": {
                     "description": "Contact's phone number",
                     "type": "string",
@@ -361,6 +366,11 @@
             "description": "Contact's name",
             "type": "string",
             "example": "John Doe"
+          },
+          "email": {
+            "description": "Contact's email",
+            "type": "string",
+            "example": "contact@gmail.com"
           },
           "phoneNumber": {
             "description": "Contact's age",
