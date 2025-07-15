@@ -28,6 +28,10 @@ requestBody:
             description: "Student's age"
             type: string
             example: "1231232132"
+          isFavourite:
+            description: "Contact is favourite"
+            type: boolean
+            example: true
           contactType:
             description: 'Whether is student on duty'
             type: string
