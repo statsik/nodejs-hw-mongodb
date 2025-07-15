@@ -39,7 +39,7 @@
         ],
         "summary": "Get all contacts",
         "operationId": "getAllContacts",
-        "description": "Get a list of all contacts with pagination",
+        "description": "Get a list of all contacts with pagination and sorting",
         "security": [
           {
             "bearerAuth": []
@@ -65,6 +65,30 @@
               "type": "integer",
               "default": 10
             }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "Field to sort by (e.g., name, email)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "name"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "in": "query",
+            "description": "Sort order (asc or desc)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "example": "asc"
+            }
           }
         ],
         "responses": {
@@ -78,7 +102,12 @@
                     "status",
                     "message",
                     "data",
-                    "pagination"
+                    "page",
+                    "perPage",
+                    "totalItems",
+                    "totalPages",
+                    "hasNextPage",
+                    "hasPreviousPage"
                   ],
                   "properties": {
                     "status": {
@@ -95,42 +124,29 @@
                         "$ref": "#/components/schemas/contact"
                       }
                     },
-                    "pagination": {
-                      "type": "object",
-                      "required": [
-                        "page",
-                        "perPage",
-                        "totalItems",
-                        "totalPages",
-                        "hasNextPage",
-                        "hasPreviousPage"
-                      ],
-                      "properties": {
-                        "page": {
-                          "type": "integer",
-                          "example": 1
-                        },
-                        "perPage": {
-                          "type": "integer",
-                          "example": 10
-                        },
-                        "totalItems": {
-                          "type": "integer",
-                          "example": 35
-                        },
-                        "totalPages": {
-                          "type": "integer",
-                          "example": 4
-                        },
-                        "hasNextPage": {
-                          "type": "boolean",
-                          "example": true
-                        },
-                        "hasPreviousPage": {
-                          "type": "boolean",
-                          "example": false
-                        }
-                      }
+                    "page": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "perPage": {
+                      "type": "integer",
+                      "example": 10
+                    },
+                    "totalItems": {
+                      "type": "integer",
+                      "example": 35
+                    },
+                    "totalPages": {
+                      "type": "integer",
+                      "example": 4
+                    },
+                    "hasNextPage": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "hasPreviousPage": {
+                      "type": "boolean",
+                      "example": false
                     }
                   }
                 }
@@ -183,6 +199,11 @@
                     "description": "Student's age",
                     "type": "string",
                     "example": "1231232132"
+                  },
+                  "isFavourite": {
+                    "description": "Contact is favourite",
+                    "type": "boolean",
+                    "example": true
                   },
                   "contactType": {
                     "description": "Whether is student on duty",
